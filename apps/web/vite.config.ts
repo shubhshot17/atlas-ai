@@ -10,6 +10,10 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react(), tailwindcss()],
 
+    // QA harness entry: included only when running `vite --mode qa`.
+    // Production builds get index.html only.
+    ...(mode === 'qa' ? { build: { rollupOptions: { input: { qa: 'qa.html' } } } } : {}),
+
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
