@@ -1,6 +1,6 @@
 # AtlasAI Web App
 
-The React web application for AtlasAI, built with React 19, Vite 6, and TypeScript 5.9.
+The React web application for AtlasAI, built with React 19, Vite 6, TypeScript 5.9, and Tailwind CSS 4.
 
 Planned responsibilities:
 
@@ -48,7 +48,7 @@ apps/web/
 │   ├── config/env.ts    # Typed access to VITE_ environment variables
 │   └── vite-env.d.ts    # Ambient types for import.meta.env
 ├── index.html           # Vite HTML entry
-├── vite.config.ts       # Vite config (React plugin, @ alias, /api dev proxy)
+├── vite.config.ts       # Vite config (React + Tailwind plugins, @ alias, /api dev proxy)
 ├── tsconfig.json        # Solution file referencing the two configs below
 ├── tsconfig.app.json    # App source compiler options (strict)
 ├── tsconfig.node.json   # Vite config compiler options
@@ -56,6 +56,24 @@ apps/web/
 ```
 
 The `@/` import alias maps to `src/`, for example `import { appEnv } from '@/config/env';`.
+
+## Styling and design tokens
+
+Tailwind CSS 4 runs as a Vite plugin (`@tailwindcss/vite` in `vite.config.ts`) — there is no `tailwind.config.js` and
+no PostCSS setup. All design tokens live in `src/index.css`:
+
+- **Palette** (`@theme`): `atlas-ocean-*` (deep blues, primary brand), `atlas-sand-*` (warm neutrals),
+  `atlas-horizon-*` (teal accent), and `atlas-sunset-*` (destructive only), each with 50–900 steps.
+- **Typography**: `--font-display` for headings (Montserrat with a system fallback), `--font-sans` for body text.
+- **Spacing**: named stops `spacing-section`, `spacing-gutter`, `spacing-card` on top of Tailwind's 4px scale.
+- **Radii**: `rounded-panel` and `rounded-badge`.
+
+Tokens are usable directly as utilities — for example `bg-atlas-ocean-900`, `text-atlas-horizon-300`,
+`font-display`, `p-card`, `rounded-panel` — and as raw variables (`var(--color-atlas-ocean-700)`).
+
+Semantic variables (`--atlas-bg`, `--atlas-surface`, `--atlas-text`, `--atlas-muted`, `--atlas-accent`) map to palette
+steps and flip automatically between dark (default) and light (`prefers-color-scheme`) schemes. Prefer these semantic
+variables in components over raw palette steps, so re-theming stays a one-layer change.
 
 ## Environment variables
 

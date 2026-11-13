@@ -1,19 +1,101 @@
-:root {
-  --atlas-bg: #0b1220;
-  --atlas-surface: #131c2e;
-  --atlas-border: #24314a;
-  --atlas-text: #e8eef8;
-  --atlas-muted: #9fb0c8;
-  --atlas-accent: #4fd1c5;
+@import 'tailwindcss';
 
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
+/*
+ * AtlasAI design tokens.
+ *
+ * Travel-inspired professional palette: deep ocean blues as the base, sand and
+ * ivory neutrals, and a teal "horizon" accent. Every token is exposed to
+ * Tailwind as a utility theme color (bg-atlas-ocean-900, text-atlas-sand-500,
+ * ring-atlas-horizon-500, ...) through the @theme block below.
+ */
+
+@theme {
+  /* ---- Typography ------------------------------------------------------ */
+
+  /* Geometric sans for headings; system stack is the fallback and body face,
+     keeping first paint fast without a webfont download. */
+  --font-display: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
     sans-serif;
+
+  /* ---- Spacing scale ----------------------------------------------------*/
+  /* Named stops on top of Tailwind's default 4px scale, for section rhythm. */
+  --spacing-section: 4.5rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-card: 1.25rem;
+
+  /* ---- Radii ------------------------------------------------------------*/
+  --radius-panel: 1rem;
+  --radius-badge: 999px;
+
+  /* ---- Palette -----------------------------------------------------------
+     Deep "ocean" blues: primary brand surface and text colors. */
+  --color-atlas-ocean-50: #eef4fb;
+  --color-atlas-ocean-100: #d8e5f4;
+  --color-atlas-ocean-200: #b4cbe7;
+  --color-atlas-ocean-300: #86abd5;
+  --color-atlas-ocean-400: #5488bd;
+  --color-atlas-ocean-500: #35699f;
+  --color-atlas-ocean-600: #275382;
+  --color-atlas-ocean-700: #1e4166;
+  --color-atlas-ocean-800: #182f4c;
+  --color-atlas-ocean-900: #0b1220;
+
+  /* Sand / ivory neutrals: warm grays for alternate surfaces and text. */
+  --color-atlas-sand-50: #faf8f5;
+  --color-atlas-sand-100: #f4f0e9;
+  --color-atlas-sand-200: #e8e1d3;
+  --color-atlas-sand-300: #d5c9b2;
+  --color-atlas-sand-400: #bdab8d;
+  --color-atlas-sand-500: #a68f6b;
+  --color-atlas-sand-600: #8a7354;
+  --color-atlas-sand-700: #6d5b44;
+  --color-atlas-sand-800: #4d4032;
+  --color-atlas-sand-900: #2e261d;
+
+  /* Horizon teal: the single accent, used sparingly for emphasis. */
+  --color-atlas-horizon-50: #e6faf7;
+  --color-atlas-horizon-100: #c2f2eb;
+  --color-atlas-horizon-200: #8ee4d9;
+  --color-atlas-horizon-300: #56d0c2;
+  --color-atlas-horizon-400: #2fb8ab;
+  --color-atlas-horizon-500: #1b9c93;
+  --color-atlas-horizon-600: #127d78;
+  --color-atlas-horizon-700: #11645f;
+  --color-atlas-horizon-800: #104f4c;
+  --color-atlas-horizon-900: #0d3231;
+
+  /* Sunset coral: reserved for destructive or urgent states only. */
+  --color-atlas-sunset-50: #fdf3f1;
+  --color-atlas-sunset-100: #fbe2de;
+  --color-atlas-sunset-200: #f7c4bc;
+  --color-atlas-sunset-300: #f09e90;
+  --color-atlas-sunset-400: #e57060;
+  --color-atlas-sunset-500: #d64838;
+  --color-atlas-sunset-600: #bf3122;
+  --color-atlas-sunset-700: #9f271a;
+  --color-atlas-sunset-800: #7f2317;
+  --color-atlas-sunset-900: #5d1d13;
+}
+
+/*
+ * Semantic mapping. Components should use these variables (--atlas-bg,
+ * --atlas-text, ...) instead of raw palette steps, so a future theme switch
+ * touches one layer only.
+ *
+ * Dark scheme by default (matches the current welcome page), light overrides
+ * under prefers-color-scheme: light.
+ */
+:root {
+  --atlas-bg: var(--color-atlas-ocean-900);
+  --atlas-surface: var(--color-atlas-ocean-800);
+  --atlas-border: var(--color-atlas-ocean-700);
+  --atlas-text: var(--color-atlas-ocean-50);
+  --atlas-muted: var(--color-atlas-ocean-300);
+  --atlas-accent: var(--color-atlas-horizon-300);
+  --atlas-accent-strong: var(--color-atlas-horizon-400);
+
+  font-family: var(--font-sans);
   line-height: 1.55;
   color-scheme: dark;
   color: var(--atlas-text);
@@ -25,12 +107,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+@media (prefers-color-scheme: light) {
+  :root {
+    --atlas-bg: var(--color-atlas-ocean-50);
+    --atlas-surface: #ffffff;
+    --atlas-border: var(--color-atlas-ocean-200);
+    --atlas-text: var(--color-atlas-ocean-900);
+    --atlas-muted: var(--color-atlas-ocean-600);
+    --atlas-accent: var(--color-atlas-horizon-600);
+    --atlas-accent-strong: var(--color-atlas-horizon-700);
+    color-scheme: light;
+  }
 }
 
+/* Minimal reset on top of Tailwind preflight. */
 body {
   margin: 0;
   min-height: 100vh;
@@ -38,16 +128,4 @@ body {
 
 #root {
   min-height: 100vh;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --atlas-bg: #f6f8fb;
-    --atlas-surface: #ffffff;
-    --atlas-border: #dbe3ef;
-    --atlas-text: #101928;
-    --atlas-muted: #4d5d75;
-    --atlas-accent: #0f766e;
-    color-scheme: light;
-  }
 }
