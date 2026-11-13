@@ -1,40 +1,68 @@
 import { appEnv } from './config/env';
 import './App.css';
 
+const HIGHLIGHTS = [
+  {
+    title: 'Discover',
+    description: 'Explore destinations and points of interest around the world.',
+  },
+  {
+    title: 'Plan',
+    description: 'Build day-by-day itineraries with a budget you can keep track of.',
+  },
+  {
+    title: 'Explore together',
+    description: 'Share a trip with the people you are travelling with.',
+  },
+];
+
+/**
+ * Temporary AtlasAI welcome page.
+ *
+ * Intentionally simple: static content and no routing, data fetching, or
+ * interactive UI. It will be replaced by the real trip dashboards as those
+ * features are built.
+ */
 function App() {
+  const buildLabel = appEnv.isDevelopment
+    ? 'Local development'
+    : `${appEnv.mode} build`;
+
   return (
     <main className="app">
       <header className="app__header">
         <p className="app__eyebrow">{appEnv.name}</p>
         <h1 className="app__title">Your World. Intelligently Explored.</h1>
         <p className="app__lead">
-          The AtlasAI web app is now set up with React, Vite, and TypeScript. Trip dashboards,
-          destination discovery, and AI-assisted planning will be built here.
+          {appEnv.name} is a travel planning companion that helps you discover destinations,
+          build itineraries day by day, and keep your trip budget in view.
+        </p>
+        <p className="app__badge">
+          <span className="app__badge-dot" aria-hidden="true" />
+          Coming soon · {buildLabel}
         </p>
       </header>
 
-      <section className="app__panel" aria-labelledby="status-heading">
-        <h2 id="status-heading" className="app__panel-title">
-          Project setup
+      <section className="app__panel" aria-labelledby="highlights-heading">
+        <h2 id="highlights-heading" className="app__panel-title">
+          What you will be able to do
         </h2>
-        <dl className="app__facts">
-          <div className="app__fact">
-            <dt>Environment</dt>
-            <dd>{appEnv.mode}</dd>
-          </div>
-          <div className="app__fact">
-            <dt>API base URL</dt>
-            <dd>{appEnv.apiBaseUrl || '/api (proxied to the backend in development)'}</dd>
-          </div>
-          <div className="app__fact">
-            <dt>Trip recommendations</dt>
-            <dd>{appEnv.featureFlags.tripRecommendations ? 'Enabled' : 'Disabled'}</dd>
-          </div>
-        </dl>
-        <p className="app__note">
-          This client talks to the Node.js API only. It never connects to MongoDB directly.
-        </p>
+        <ul className="app__highlights">
+          {HIGHLIGHTS.map((highlight) => (
+            <li key={highlight.title} className="app__highlight">
+              <h3 className="app__highlight-title">{highlight.title}</h3>
+              <p className="app__highlight-text">{highlight.description}</p>
+            </li>
+          ))}
+        </ul>
       </section>
+
+      <footer className="app__footer">
+        <p>
+          This page is a temporary placeholder. Trip planning features will arrive in future
+          releases.
+        </p>
+      </footer>
     </main>
   );
 }
