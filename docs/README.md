@@ -4,6 +4,7 @@ This directory will contain project documentation, architecture notes, developer
 
 Planned contents:
 - Architecture overview
+- [Planned database design](database-design.md)
 - Setup and onboarding guides
 - API documentation
 - Environment configuration references
