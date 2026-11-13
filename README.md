@@ -80,7 +80,8 @@ The intended technology stack for AtlasAI is as follows:
 - ML or AI-based travel intelligence workflows
 
 ### Data and Infrastructure
-- PostgreSQL for core application data
+- MongoDB Atlas as the managed cloud database for core application data
+- Mongoose as the ODM in the Node.js backend (the only component that connects to the database)
 - Redis for caching and session-related workflows
 - Docker for local development and deployment consistency
 - CI/CD tooling for automated quality checks and deployment pipelines

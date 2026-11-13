@@ -4,7 +4,7 @@ This directory will contain project documentation, architecture notes, developer
 
 Planned contents:
 - Architecture overview
-- [Planned database design](database-design.md)
+- [Deciding database design (MongoDB Atlas + Mongoose)](database-design.md)
 - [Planned REST API design](api-design.md)
 - Setup and onboarding guides
 - API documentation
