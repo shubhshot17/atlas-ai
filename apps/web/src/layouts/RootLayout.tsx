@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
+import { Footer } from '@/components/layout/Footer';
 import { NavBar } from '@/components/layout/NavBar';
-import { LogoLockup } from '@/components/brand';
-import { appEnv } from '@/config/env';
 
 /**
  * Shared chrome for every page: skip link, header with primary navigation,
- * the routed page in `main`, and a footer.
+ * the routed page in `main`, and the site footer.
  *
  * This root layout is also the root of the route tree, so it survives
  * navigation and holds state and data fetching for the authenticated shell
@@ -35,14 +34,7 @@ export function RootLayout() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-[var(--atlas-border)]">
-        <div className="mx-auto w-full max-w-5xl px-gutter py-6 text-sm text-[var(--atlas-muted)]">
-          <LogoLockup size={22} withTagline title="" />
-          <p className="mt-3">
-            &copy; {new Date().getFullYear()} {appEnv.name}.
-          </p>
-        </div>
-      </footer>
+      <Footer />
 
       <ScrollRestoration />
     </div>
