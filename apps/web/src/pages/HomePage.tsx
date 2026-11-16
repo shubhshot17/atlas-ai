@@ -1,6 +1,7 @@
 import { Hero } from '@/components/home/Hero';
 import { FeatureGrid } from '@/components/home/FeatureGrid';
 import { PopularDestinations } from '@/components/home/PopularDestinations';
+import { TravelInspiration } from '@/components/home/TravelInspiration';
 import { PageShell } from '@/components/layout/PageShell';
 import { Container } from '@/components/ui';
 
@@ -20,7 +21,11 @@ export function HomePage() {
         <FeatureGrid labelledBy="features-heading" />
       </PageShell>
 
-      {/* The section renders its own heading, so this only supplies page padding. */}
+      {/* These sections render their own headings, so they only need page padding. */}
+      <Container className="pb-section">
+        <TravelInspiration />
+      </Container>
+
       <Container className="pb-section">
         <PopularDestinations />
       </Container>
