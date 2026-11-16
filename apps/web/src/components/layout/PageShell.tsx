@@ -16,6 +16,8 @@ export interface PageShellProps {
   action?: ReactNode;
   /** Page body. */
   children?: ReactNode;
+  /** Id applied to the heading, so a following section can reference it. */
+  id?: string;
   className?: string;
 }
 
@@ -30,11 +32,19 @@ export function PageShell({
   description,
   action,
   children,
+  id,
   className,
 }: PageShellProps) {
   return (
     <Container className={cn('py-section', className)}>
-      <SectionHeading as={as} eyebrow={eyebrow} title={title} description={description} action={action} />
+      <SectionHeading
+        as={as}
+        id={id}
+        eyebrow={eyebrow}
+        title={title}
+        description={description}
+        action={action}
+      />
       {children}
     </Container>
   );

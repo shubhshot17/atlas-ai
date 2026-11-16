@@ -45,7 +45,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-5 max-w-xl text-base text-pretty text-[var(--atlas-muted)] md:text-lg">
-            {appEnv.name} uses AI to turn a destination and a few dates into a practical
+            {appEnv.name} is being built to turn a destination and a few dates into a practical
             itinerary — places worth seeing, a day-by-day plan, and a budget you can actually
             keep.
           </p>
