@@ -61,8 +61,10 @@ apps/web/
 │   │   ├── DashboardPage.tsx
 │   │   └── NotFoundPage.tsx    # 404 page + RouteErrorPage boundary
 │   ├── components/
+│   │   ├── brand/       # Logo + logo lockup React components
 │   │   ├── layout/PageShell.tsx # Standard page padding + heading block
 │   │   └── ui/          # Shared UI primitives
+│   ├── assets/brand/    # Static brand SVGs (mark variants, lockups)
 │   └── vite-env.d.ts    # Ambient types for import.meta.env
 ├── index.html           # Vite HTML entry
 ├── vite.config.ts       # Vite config (React + Tailwind plugins, @ alias, /api dev proxy)
@@ -117,6 +119,15 @@ no PostCSS setup. All design tokens live in `src/index.css`:
 
 Tokens are usable directly as utilities — for example `bg-atlas-ocean-900`, `text-atlas-horizon-300`,
 `font-display`, `p-card`, `rounded-panel` — and as raw variables (`var(--color-atlas-ocean-700)`).
+
+## Branding
+
+The logo (tilted wireframe globe with a compass-needle bearing), tagline
+("Your World. Intelligently Explored."), palette, and typography rules are documented in
+[docs/brand.md](../../docs/brand.md). Use the React components
+(`import { Logo, LogoLockup } from '@/components/brand'`) in the app; the static SVGs in
+`src/assets/brand/` are for non-React contexts. The palette in `index.css` is the single
+source of brand color — update `docs/brand.md`'s hex table in the same change if it moves.
 
 Semantic variables (`--atlas-bg`, `--atlas-surface`, `--atlas-text`, `--atlas-muted`, `--atlas-accent`) map to palette
 steps and flip automatically between dark (default) and light (`prefers-color-scheme`) schemes. Prefer these semantic

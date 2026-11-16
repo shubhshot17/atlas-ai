@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, NavLink, Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/cn';
+import { LogoLockup } from '@/components/brand';
 import { appEnv } from '@/config/env';
 import { paths } from '@/router/paths';
 
@@ -53,9 +54,10 @@ export function RootLayout() {
         <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-gutter py-3">
           <Link
             to={paths.home}
-            className="font-display text-base font-semibold tracking-tight text-[var(--atlas-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600"
+            className="rounded-panel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600"
+            aria-label="AtlasAI home"
           >
-            {appEnv.name}
+            <LogoLockup size={26} title="" />
           </Link>
 
           <nav aria-label="Primary" className="flex flex-wrap items-center gap-1">
@@ -93,8 +95,9 @@ export function RootLayout() {
 
       <footer className="border-t border-[var(--atlas-border)]">
         <div className="mx-auto w-full max-w-5xl px-gutter py-6 text-sm text-[var(--atlas-muted)]">
-          <p>
-            &copy; {new Date().getFullYear()} {appEnv.name}. Your world. Intelligently explored.
+          <LogoLockup size={22} withTagline title="" />
+          <p className="mt-3">
+            &copy; {new Date().getFullYear()} {appEnv.name}.
           </p>
         </div>
       </footer>

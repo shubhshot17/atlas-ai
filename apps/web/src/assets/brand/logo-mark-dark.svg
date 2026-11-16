@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AtlasAI">
+  <!-- AtlasAI logo mark, dark tone for light surfaces. Palette + rationale: docs/brand.md -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="rotate(-14 30 34)" stroke="#0b1220" stroke-width="3.5">
+      <circle cx="30" cy="34" r="18"/>
+      <ellipse cx="30" cy="34" rx="8" ry="18" stroke-width="2.5"/>
+      <path d="M13 28h34M13 40h34" stroke-width="2.5"/>
+    </g>
+    <g stroke="#127d78" stroke-width="3.5">
+      <path d="M30 34 51 13"/>
+      <path d="M43 13h8v8"/>
+      <circle cx="30" cy="34" r="2.75" fill="#127d78" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

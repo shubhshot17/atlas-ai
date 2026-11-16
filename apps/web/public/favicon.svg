@@ -1,6 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AtlasAI">
+  <!-- AtlasAI favicon: logo mark on a brand navy tile. Palette + rationale: docs/brand.md -->
   <rect width="64" height="64" rx="14" fill="#0b1220"/>
-  <circle cx="32" cy="32" r="17" fill="none" stroke="#4fd1c5" stroke-width="3.5"/>
-  <path d="M15 32h34M32 15c6 5 9 10.5 9 17s-3 12-9 17c-6-5-9-10.5-9-17s3-12 9-17z"
-        fill="none" stroke="#4fd1c5" stroke-width="3" stroke-linecap="round"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="rotate(-14 30 34)" stroke="#eef4fb" stroke-width="3.5">
+      <circle cx="30" cy="34" r="18"/>
+      <ellipse cx="30" cy="34" rx="8" ry="18" stroke-width="2.5"/>
+      <path d="M13 28h34M13 40h34" stroke-width="2.5"/>
+    </g>
+    <g stroke="#56d0c2" stroke-width="3.5">
+      <path d="M30 34 51 13"/>
+      <path d="M43 13h8v8"/>
+      <circle cx="30" cy="34" r="2.75" fill="#56d0c2" stroke-width="1.5"/>
+    </g>
+  </g>
 </svg>
