@@ -42,10 +42,27 @@ apps/web/
 ├── public/              # Static assets copied as-is (favicon)
 ├── src/
 │   ├── main.tsx         # React entry point
-│   ├── App.tsx          # Root component
-│   ├── App.css          # Component styles
+│   ├── App.tsx          # Mounts the router (RouterProvider)
+│   ├── App.css          # Styles for the original welcome page (no longer imported)
 │   ├── index.css        # Global styles and CSS variables
 │   ├── config/env.ts    # Typed access to VITE_ environment variables
+│   ├── router/
+│   │   ├── index.ts     # createBrowserRouter instance; re-exports `paths`
+│   │   ├── routes.tsx   # Route table
+│   │   └── paths.ts     # Path constants and link builders (single source of truth)
+│   ├── layouts/RootLayout.tsx  # Shared header / nav / main / footer
+│   ├── pages/           # One component per route
+│   │   ├── HomePage.tsx
+│   │   ├── ExplorePage.tsx
+│   │   ├── DestinationDetailsPage.tsx
+│   │   ├── PlanTripPage.tsx
+│   │   ├── LoginPage.tsx
+│   │   ├── RegisterPage.tsx
+│   │   ├── DashboardPage.tsx
+│   │   └── NotFoundPage.tsx    # 404 page + RouteErrorPage boundary
+│   ├── components/
+│   │   ├── layout/PageShell.tsx # Standard page padding + heading block
+│   │   └── ui/          # Shared UI primitives
 │   └── vite-env.d.ts    # Ambient types for import.meta.env
 ├── index.html           # Vite HTML entry
 ├── vite.config.ts       # Vite config (React + Tailwind plugins, @ alias, /api dev proxy)
@@ -56,6 +73,36 @@ apps/web/
 ```
 
 The `@/` import alias maps to `src/`, for example `import { appEnv } from '@/config/env';`.
+
+## Routing
+
+The app uses [React Router](https://reactrouter.com/) (`react-router-dom` 7) in data mode: `src/router/index.ts`
+creates a browser router from the route table in `src/router/routes.tsx`, and `App.tsx` renders it with
+`<RouterProvider>`. Every page is nested under `RootLayout`, so the header, primary navigation and footer are shared
+and persist across client-side navigation.
+
+| Path                   | Page                     | Notes                                          |
+| ---------------------- | ------------------------ | ---------------------------------------------- |
+| `/`                    | `HomePage`               | Landing page                                   |
+| `/explore`             | `ExplorePage`            | Search is synced to the `?q=` query param      |
+| `/destinations/:id`    | `DestinationDetailsPage` | Placeholder; reads the `destinationId` param   |
+| `/plan`                | `PlanTripPage`           | Placeholder trip builder                       |
+| `/login`               | `LoginPage`              | Placeholder, form is inert                     |
+| `/register`            | `RegisterPage`           | Placeholder, form is inert                     |
+| `/dashboard`           | `DashboardPage`          | Placeholder trip dashboard                     |
+| `*`                    | `NotFoundPage`           | 404 page inside the shared layout              |
+
+Conventions:
+
+- **Never hand-write URLs.** Import `paths` from `@/router` and build links, e.g. `<Link to={paths.explore}>` or
+  `navigate(paths.destination(id))`.
+- **Add a page** by creating it in `src/pages/`, adding its path to `paths`, and adding an entry to `routes`.
+- `RootLayout` also hosts a `RouteErrorPage` error boundary for unexpected render errors; plain unknown URLs fall
+  through to the `*` route.
+- New pages should use `PageShell` for consistent padding and a single `h1`.
+
+Because routing is client-side, the static host must route unknown paths to `index.html` (see
+[Deployment](#deployment)) — otherwise a hard refresh on `/explore` returns the host's own 404.
 
 ## Styling and design tokens
 

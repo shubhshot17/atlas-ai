@@ -1,0 +1,28 @@
+import type { ReactNode } from 'react';
+import { Container, SectionHeading, cn } from '@/components/ui';
+
+export interface PageShellProps {
+  /** Page title; rendered as the single `h1` of the page. */
+  title: ReactNode;
+  /** Small label above the title. */
+  eyebrow?: string;
+  description?: ReactNode;
+  /** Right-aligned actions next to the title (buttons, links). */
+  action?: ReactNode;
+  /** Page body. */
+  children?: ReactNode;
+  className?: string;
+}
+
+/**
+ * Standard padding and heading block for a routed page. Keeps every page's
+ * vertical rhythm and document outline consistent.
+ */
+export function PageShell({ title, eyebrow, description, action, children, className }: PageShellProps) {
+  return (
+    <Container className={cn('py-section', className)}>
+      <SectionHeading as="h1" eyebrow={eyebrow} title={title} description={description} action={action} />
+      {children}
+    </Container>
+  );
+}
