@@ -1,5 +1,6 @@
 import type { ErrorRequestHandler } from "express";
 import { ApiError } from "../errors/ApiError.js";
+import { RequestValidationError } from "../errors/RequestValidationError.js";
 
 const hasErrorType = (error: unknown, type: string): boolean =>
   typeof error === "object"
@@ -10,6 +11,17 @@ const hasErrorType = (error: unknown, type: string): boolean =>
 export const errorHandler: ErrorRequestHandler = (error, _request, response, next) => {
   if (response.headersSent) {
     next(error);
+    return;
+  }
+
+  if (error instanceof RequestValidationError) {
+    response.status(error.statusCode).json({
+      error: {
+        code: error.code,
+        message: error.message,
+        details: error.issues,
+      },
+    });
     return;
   }
 

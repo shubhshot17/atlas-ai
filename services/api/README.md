@@ -39,7 +39,13 @@ src/
 ├── errors/       # API error types
 ├── middleware/   # Shared Express middleware
 ├── routes/       # API route registration
+├── schemas/      # Request validation schemas
 └── services/     # Future application/service logic
 ```
 
 The initial `GET /api/health` route returns the service status and application name; no business features are implemented.
+
+`POST /api/trips` demonstrates reusable Zod body validation for a destination,
+ISO start/end dates, and traveler count. It returns a validation-only response and
+does not create or persist a trip. Invalid fields are returned in
+`error.details` as `{ "field": "...", "message": "..." }` entries.
