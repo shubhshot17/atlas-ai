@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
+import { ApiError } from "../errors/ApiError.js";
 
-export const notFoundHandler: RequestHandler = (_request, response) => {
-  response.status(404).json({ error: "Not found" });
+export const notFoundHandler: RequestHandler = (request, _response, next) => {
+  next(new ApiError(404, "NOT_FOUND", `No route found for ${request.method} ${request.path}.`));
 };

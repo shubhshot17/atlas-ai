@@ -27,6 +27,8 @@ npm start
 
 `npm run typecheck` checks the TypeScript sources without producing build output.
 `npm test` runs the API endpoint tests.
+Errors use a consistent `{ "error": { "code": "...", "message": "..." } }` response.
+Unexpected server errors are logged internally and return a generic message without a stack trace.
 
 ## Structure
 
@@ -34,6 +36,7 @@ npm start
 src/
 ├── config/       # Runtime configuration
 ├── controllers/  # HTTP request handlers
+├── errors/       # API error types
 ├── middleware/   # Shared Express middleware
 ├── routes/       # API route registration
 └── services/     # Future application/service logic
