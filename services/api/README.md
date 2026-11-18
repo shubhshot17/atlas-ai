@@ -21,6 +21,7 @@ npm start
 ```
 
 `npm run typecheck` checks the TypeScript sources without producing build output.
+`npm test` runs the API endpoint tests.
 
 ## Structure
 
@@ -33,4 +34,4 @@ src/
 └── services/     # Future application/service logic
 ```
 
-The initial `/api/health` route is only a service health check; no business features are implemented.
+The initial `GET /api/health` route returns the service status and application name; no business features are implemented.

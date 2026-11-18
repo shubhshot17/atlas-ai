@@ -6,3 +6,4 @@ if (!Number.isInteger(parsedPort) || parsedPort < 0 || parsedPort > 65535) {
 }
 
 export const port = parsedPort;
+export const applicationName = process.env.API_NAME ?? "atlasai-api";
