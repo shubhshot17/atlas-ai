@@ -37,9 +37,17 @@ export function Hero() {
             {appEnv.name}
           </p>
 
+          {/*
+            `leading-[1.15]` (1.1 from `md`) plus `pb-[0.12em]`: the fallback
+            display face paints taller than its line box, so at 1.1 the 60px
+            headline's content box was 132px while the ink needed ~139px and the
+            "g" / "y" descenders sat on the boundary. The padding gives that ink
+            room; `text-balance` splits the 6ch longest word ("Intelligently")
+            onto its own line, so no line can overflow the gutter at 320px.
+          */}
           <h1
             id="hero-heading"
-            className="mt-3 font-display text-4xl leading-[1.1] font-semibold tracking-tight text-balance md:text-6xl"
+            className="mt-3 pb-[0.12em] font-display text-4xl leading-[1.15] font-semibold tracking-tight text-balance md:text-5xl md:leading-[1.1] lg:text-6xl"
           >
             Your World. Intelligently Explored.
           </h1>

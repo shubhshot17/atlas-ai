@@ -23,8 +23,11 @@ const ACCOUNT_LINKS = [
 const columnHeadingClass =
   'font-display text-xs font-semibold tracking-widest text-[var(--atlas-text)] uppercase';
 
+// Links are padded and interleaved with a tight gap so each one is a taller
+// tap target than bare 14px text; the padding and gap are sized to add up to
+// the previous visual rhythm rather than stretch the footer.
 const columnLinkClass =
-  'rounded-panel text-sm text-[var(--atlas-muted)] transition-colors duration-150 ' +
+  'inline-block py-0.5 rounded-panel text-sm text-[var(--atlas-muted)] transition-colors duration-150 ' +
   'hover:text-[var(--atlas-text)] ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600';
 
@@ -59,7 +62,7 @@ export function Footer() {
 
           <nav aria-label="Footer explore">
             <h2 className={columnHeadingClass}>Explore</h2>
-            <ul className="mt-3 flex flex-col gap-2">
+            <ul className="mt-3 flex flex-col gap-1.5">
               {EXPLORE_LINKS.map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className={columnLinkClass}>
@@ -72,7 +75,7 @@ export function Footer() {
 
           <nav aria-label="Footer account">
             <h2 className={columnHeadingClass}>Account</h2>
-            <ul className="mt-3 flex flex-col gap-2">
+            <ul className="mt-3 flex flex-col gap-1.5">
               {ACCOUNT_LINKS.map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className={columnLinkClass}>

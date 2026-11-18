@@ -12,7 +12,7 @@ export const NAV_LINKS = [
 ] as const;
 
 const linkBase =
-  'rounded-panel px-3 py-1.5 text-sm font-medium transition-colors duration-150 ' +
+  'whitespace-nowrap rounded-panel px-3 py-1.5 text-sm font-medium transition-colors duration-150 ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600';
 
 function navLinkClass({ isActive }: { isActive: boolean }) {
@@ -40,6 +40,16 @@ const MENU_LINKS = [
  * - on close (toggle, link click, or Escape) focus returns to the toggle button;
  * - navigating from inside the menu (link click) closes it, and the route
  *   change also closes it for links activated by other means.
+ *
+ * Breakpoint: the inline nav needs ~690px of row width (logo + four links +
+ * two account actions + gutters), so it appears at `md` (768px) and the
+ * hamburger covers everything below. At `sm` (640px) "Plan a trip" wrapped
+ * to a second line and stretched the header from 58px to 77px.
+ *
+ * Row layout: the outer row is `flex-nowrap` at every width, so the hamburger
+ * can never be pushed onto a second line (a fixed 58px header everywhere).
+ * Labels are `whitespace-nowrap` so the inline nav can never wrap into a
+ * two-line pill; it needs ~690px at `md`, which the row leaves ample.
  */
 export function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -85,7 +95,7 @@ export function NavBar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--atlas-border)] bg-[var(--atlas-bg)]">
-      <div className="mx-auto flex w-full max-w-5xl items-center gap-x-6 gap-y-2 px-gutter py-3">
+      <div className="mx-auto flex h-[58px] w-full max-w-5xl items-center gap-x-4 px-gutter md:gap-x-6">
         <Link
           to={paths.home}
           className="rounded-panel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600"
@@ -94,8 +104,8 @@ export function NavBar() {
           <LogoLockup size={26} title="" />
         </Link>
 
-        {/* Desktop: primary links inline from `sm` up. */}
-        <nav aria-label="Primary" className="hidden items-center gap-1 sm:flex">
+        {/* Desktop: primary links inline from `md` up. */}
+        <nav aria-label="Primary" className="hidden items-center gap-0.5 md:flex">
           {NAV_LINKS.map((link) => (
             <NavLink
               key={link.to}
@@ -109,7 +119,7 @@ export function NavBar() {
         </nav>
 
         {/* Desktop: account actions on the right. */}
-        <div className="ml-auto hidden items-center gap-1 sm:flex">
+        <div className="ml-auto hidden items-center gap-1 md:flex">
           <NavLink to={paths.login} className={navLinkClass}>
             Log in
           </NavLink>
@@ -128,13 +138,13 @@ export function NavBar() {
           </NavLink>
         </div>
 
-        {/* Mobile: hamburger below `sm`. */}
+        {/* Mobile: hamburger below `md`. */}
         <button
           ref={toggleRef}
           type="button"
           className={cn(
             'ml-auto inline-flex h-10 w-10 items-center justify-center rounded-panel',
-            'text-[var(--atlas-text)] transition-colors duration-150 sm:hidden',
+            'text-[var(--atlas-text)] transition-colors duration-150 md:hidden',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600',
             menuOpen && 'bg-[var(--atlas-surface)]',
           )}
@@ -162,9 +172,15 @@ export function NavBar() {
         <div
           ref={panelRef}
           id="mobile-menu"
-          className="border-t border-[var(--atlas-border)] bg-[var(--atlas-bg)] sm:hidden"
+          className="border-t border-[var(--atlas-border)] bg-[var(--atlas-bg)] md:hidden"
         >
           <nav aria-label="Mobile" className="mx-auto flex w-full max-w-5xl flex-col gap-1 px-gutter py-3">
+            {/*
+              Menu rows are `h-11` strips rather than text-sized pills: on a
+              phone these are the primary tap targets, and `py-2` alone left
+              them 36px tall. Fixed height also makes every row the same size
+              whether the label is active or not.
+            */}
             {MENU_LINKS.map((link) => (
               <NavLink
                 key={link.to}
@@ -172,7 +188,7 @@ export function NavBar() {
                 end={'end' in link ? link.end : undefined}
                 className={({ isActive }) =>
                   cn(
-                    'rounded-panel px-3 py-2 text-sm font-medium transition-colors duration-150',
+                    'flex h-11 items-center rounded-panel px-3 text-sm font-medium whitespace-nowrap transition-colors duration-150',
                     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600',
                     isActive
                       ? 'bg-[var(--atlas-surface)] text-[var(--atlas-text)]'
@@ -188,7 +204,7 @@ export function NavBar() {
               to={paths.register}
               className={({ isActive }) =>
                 cn(
-                  'mt-2 rounded-panel bg-atlas-horizon-600 px-3 py-2 text-center text-sm font-medium text-white',
+                  'mt-2 flex h-11 items-center justify-center rounded-panel bg-atlas-horizon-600 px-3 text-center text-sm font-medium text-white',
                   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atlas-horizon-600',
                   isActive ? 'opacity-90' : 'hover:bg-atlas-horizon-500',
                 )
